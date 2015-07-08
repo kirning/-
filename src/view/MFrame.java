@@ -10,6 +10,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import view.Service.CallBack;
 
@@ -22,7 +23,7 @@ public class MFrame extends JFrame implements CallBack {
 	private JProgressBar progressBar;
 
 	public MFrame() {
-		setTitle("受能你好");
+		setTitle("受能你好 1.0");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(400, 200);
 		this.setLocationRelativeTo(null);
@@ -37,12 +38,11 @@ public class MFrame extends JFrame implements CallBack {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setFileFilter(new FileNameExtensionFilter("bin", "bin"));
 				fileChooser.showOpenDialog(null);
 				File file = fileChooser.getSelectedFile();
 				if (file != null) {
 					Service.getInstance().change(file, MFrame.this);
-				} else {
-					JOptionPane.showMessageDialog(null, "没有选中文件");
 				}
 			}
 		});
