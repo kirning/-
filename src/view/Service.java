@@ -25,8 +25,8 @@ public class Service {
 	}
 
 	public void change(File file, CallBack callBack) {
-		File path = new File("data/");
-		System.out.println(path.getAbsolutePath());
+		//如果data这个目录不存在，则创建之
+		File path = new File("data/");		
 		if (!path.isDirectory() && !path.exists()) {
 			path.mkdirs();
 		}
@@ -41,15 +41,18 @@ public class Service {
 						int j = 0;
 						byte[] buff = new byte[1024];
 
-						while ((i = fileInput.read(buff)) != -1) {
+						//每次读取1024b的文件，然后写入新的文件
+						while ((i = fileInput.read(buff)) != -1) {							
 							File resultFile = new File(path.getPath() + "/" + j + ".bin");
 							if (!resultFile.exists()) {
 								resultFile.createNewFile();
 							}
+							//写入新文件
 							try (FileOutputStream out = new FileOutputStream(resultFile)) {
 								out.write(buff);
 								size = 1024 * j;
 							}
+							//改变进度条的进度
 							callBack.callBack(relSize, size);
 							j++;
 						}
