@@ -47,13 +47,7 @@ public class Service {
 		}
 	}
 	
-	private File createDirectory(String path){
-		File pathDirector = new File(path);
-		if (!pathDirector.isDirectory() && !pathDirector.exists()) {
-			pathDirector.mkdirs();
-		}
-		return pathDirector;
-	}
+
 
 	public void change(File file, CallBack callBack) {
 		// 如果data这个目录不存在，则创建之
@@ -70,7 +64,7 @@ public class Service {
 						long size = 0;
 						int j = 0;
 						byte[] buff = new byte[1024];
-						File p = createDirectory(path.getPath() + "/" + file.getName());
+						File p = Utils.createDirectory(path.getPath() + "/" + file.getName());
 						// 每次读取1024b的文件，然后写入新的文件
 						while ((i = fileInput.read(buff)) != -1) {
 							File resultFile = new File(p.getPath() + "/" + j + ".bin");
